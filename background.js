@@ -21,7 +21,7 @@ chrome.omnibox.onInputChanged.addListener(
 			if (key == text) {
 				// Skip this one.
 			
-			} else if (key.includes(text)) {
+			} else if (text != '' && key.includes(text)) {
 				// Suggest this one.
 				description = '<dim>' + key + '</dim>'
 				description = description.replace(text, '</dim><match>' + text + '</match><dim>')
