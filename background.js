@@ -1,6 +1,5 @@
 // Constants
 
-// TODO: make this configurable from a menu.
 let links = {
 	"home": "https://github.com/phlippieb/jump-chrome-extension"
 }
@@ -56,8 +55,6 @@ function updateTopSuggestion(text) {
 		defaultSuggestion += ' jump to'
 		defaultSuggestion += ' <url>' + links[text] + '</url>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
-		
-		// TODO: get best suggestion for text and 'select' that.
 	
 	} else {
 		// User entered something that isn't a valid keyword. Hide the default suggestion.
@@ -72,9 +69,6 @@ chrome.omnibox.onInputEntered.addListener(
 		let selectedLink = links[text]
 		if (selectedLink) {
 			navigate(selectedLink)
-		
-		} else {
-			// TODO: go to top result if any?
 		}
 	}
 );
