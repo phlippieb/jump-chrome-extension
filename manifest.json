@@ -1,0 +1,27 @@
+{
+	"name": "jump",
+	"version": "0.1",
+	"description": "Jump to sites using shortcut words",
+	"manifest_version": 2,
+	"background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": false
+	},
+	"omnibox": {
+		"keyword": "j"
+	},
+	"browser_action": {
+		"default_icon": {
+			"16": "j16.png",
+			"32": "j32.png"
+		}
+	},
+	"icons": {
+		"16": "j16.png",
+		"32": "j32.png",
+		"48": "j48.png",
+		"128": "j128.png"
+	}
+}
