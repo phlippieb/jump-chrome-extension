@@ -100,7 +100,8 @@ function updateTopSuggestion(text) {
 		console.log(links[match]);
 		
 		// User entered a valid keyword. Show its url.
-		defaultSuggestion = '<match>' + match + '</match>'
+		defaultSuggestion = '<dim>' + match + '</dim>'
+		defaultSuggestion = defaultSuggestion.replace(text, '</dim><match>' + text + '</match><dim>')
 		defaultSuggestion += ' <dim> ▶︎ </dim> '
 		defaultSuggestion += ' <url>' + links[match] + '</url>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
