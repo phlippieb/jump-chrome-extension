@@ -5,16 +5,21 @@
 		max-width: 1000px;
 		margin: auto;
 	}
+	.table {
+		width: 100%;
+		table-layout: fixed;
+	}
 	tbody>tr>:nth-child(1) {
 		font-family: Courier, Monaco, monospace;
+	}
+	tbody>tr>:nth-child(2) {
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	tbody>tr>:nth-child(3) {
 		color: #999;
 		cursor: pointer;
 	}
-	/* tbody>tr>:nth-child(3):hover {
-		color: #f00;
-	} */
 	.remove {
 		background: #fff;
 		color: #777;
@@ -71,12 +76,12 @@
 					Your registered URLs are listed below. Click on the "x" to the right of an item to remove it.
 				</p>
 				
-				<table class="primary">
+				<table class="primary table">
 					<thead>
 						<tr>
-							<th>Keyword</th>
+							<th style="width: 25%;">Keyword</th>
 							<th>URL</th>
-							<th></th>
+							<th style="width: 120px;"></th>
 						</tr>
 					</thead>
 					<tbody id="tableBody" name="tableBody">
