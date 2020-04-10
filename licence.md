@@ -1,4 +1,4 @@
-  The MIT License (MIT)
+The MIT License (MIT)
 
 Copyright (C) 2020, Phlippie Bosman. https://github.com/phlippieb. All rights reserved.
 
