@@ -13,6 +13,9 @@
         "keyword": "j"
     },
     "options_page": "options.html",
+    "permissions": [
+        "storage"
+    ],
     "icons": {
         "16": "j16.png",
         "32": "j32.png",

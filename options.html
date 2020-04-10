@@ -12,8 +12,16 @@
 		color: #999;
 		cursor: pointer;
 	}
-	tbody>tr>:nth-child(3):hover {
+	/* tbody>tr>:nth-child(3):hover {
 		color: #f00;
+	} */
+	.remove {
+		background: #fff;
+		color: #777;
+	}
+	.remove:hover {
+		background: #f00;
+		color: #fff;
 	}
 }
 </style>
@@ -51,9 +59,9 @@
 				</p>
 				
 				<div class="full two-third-1000">
-					<input class="stack" placeholder="Keyword">
-					<input class="stack" placeholder="URL">
-					<button class="stack">Add</button>
+					<input class="stack" id="keywordInput" placeholder="Keyword">
+					<input class="stack" id="urlInput" placeholder="URL">
+					<button class="stack" id="addButton">Add</button>
 				</div>
 				
 				<!-- Registered URLs -->
@@ -71,11 +79,14 @@
 							<th></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tableBody" name="tableBody">
 						<tr>
 							<td>home</td>
 							<td>github.com</td>
-							<td>x</td>
+							<!-- <td>x</td> -->
+							<td>
+								<button class="remove">Remove</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -123,6 +134,7 @@
 					For info, help, bugs and contributions, visit the
 					<a href="https://github.com/phlippieb/jump-chrome-extension">Github repository</a>.
 			  </p>
+			  
 			  <h2>Acknowledgements</h2>
 			  <p>
 					Jump uses the following content:
@@ -134,4 +146,7 @@
 			</article>
 		</section>
 	</main>
+	
+	<!-- Script -->
+	<script src="options.js"></script>
 </body>
