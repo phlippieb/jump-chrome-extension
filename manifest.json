@@ -1,6 +1,6 @@
 {
     "name": "jump",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Jump to sites using shortcut words",
     "manifest_version": 2,
     "background": {
