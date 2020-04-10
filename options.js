@@ -35,32 +35,37 @@ function restoreOptions() {
 			if (keyword && url) {
 				// Create and populate row.
 				var row = newTableBody.insertRow();
+				row.id = keyword
 
 				var col1 = row.insertCell();
-				col1.innerHTML = keyword
+				col1.innerText = keyword
 
 				var col2 = row.insertCell();
-				col2.innerHTML = url;
-
+				col2.innerText = url;
+				
+				let removeButton = document.createElement('button');
+				removeButton.id = keyword;
+				removeButton.classList = "remove";
+				removeButton.innerText = "Remove";
+				
 				var col3 = row.insertCell();
-				col3.innerHTML = "<button class=\"remove\">Remove</button>";
+				col3.innerHTML = removeButton.outerHTML;
+				
+				col3.childNodes[0].addEventListener('click', function() { 
+					unregisterUrl(keyword);
+				});
 			}
 		}
 
 		// Get the current table body element.
 		var oldTableBody = document.getElementById('tableBody');
-		log('old table body:')
-		log(oldTableBody)
-		log('new table body:')
-		log(newTableBody)
-
+		
+		// Replace table body with newly generated rows.
 		if (oldTableBody) {
-			// Replace table body with newly generated rows.
 			oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody)
 		}
 	});
 }
-
 
 // Registers a new URL.
 function registerUrl() {
@@ -109,7 +114,7 @@ function registerUrl() {
 				keywordInput.value = "";
 				urlInput.value = "";
 
-				// Update the table.
+				// Reload the table.
 				restoreOptions();
 			});
 		});
@@ -118,6 +123,30 @@ function registerUrl() {
 		// One or more inputs were empty.
 		log('Input was invalid.')
 	}
+}
+
+function unregisterUrl(keyword) {
+	log('Unregistering keyword: ' + keyword);
+	
+	// Get current keywords.
+	chrome.storage.sync.get({
+		// Default values: empty list.
+		registeredLinks: []
+
+	}, function (items) {
+		// Get the data to populate the table with.
+		let updatedLinks = items.registeredLinks.filter(function(value) {
+			return value.keyword != keyword;
+		});
+		
+		// Store the updated links.
+		chrome.storage.sync.set({
+			registeredLinks: updatedLinks
+		}, function () {
+			// Reload the table.
+			restoreOptions();
+		});
+	});
 }
 
 function log(value) {
