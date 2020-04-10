@@ -112,6 +112,9 @@ chrome.omnibox.onInputEntered.addListener(
 		} else if (closestMatch(text)) {
 			console.log('found top match!:')
 			navigate(links[closestMatch(text)]);
+		
+		} else {
+			navigateToOptions()
 		}
 	}
 );
