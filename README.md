@@ -47,6 +47,12 @@ You can also use the arrow keys to move up and down between suggestions. However
 
 Something not working? Got a question? Have an idea for an improvement? Feel free to [post an issue](https://github.com/phlippieb/jump-chrome-extension/issues) on this project! Just remember to search for existing issues that might already cover what you were going post first, please.
 
+Also keep in mind that this is just a little pet project that I coded in a weekend, and that I maintain by myself. I make no commitments to support this project or its users.
+
 # Developers
 
 I created this project to fill a simple need for myself, and _for me_, that need is officially filled. However, this project is open source because there are probably always opportunities for improvements. If you'd like to contribute, feel free to [open a pull request](https://github.com/phlippieb/jump-chrome-extension/pulls)! If you'd like to contribute but you don't know what to do, you can always scan the [issues](https://github.com/phlippieb/jump-chrome-extension/issues) for inspiration.
+
+Contributing ought to be really easy. I have close to zero experience with web development, and I was taken aback by how quickly I got this up and running. To contribute, you will need just
+- Google Chrome
+- Maybe JavaScript?
