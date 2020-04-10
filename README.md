@@ -27,11 +27,13 @@ Once **jump** is activated, you can either jump to one of your URLs, or go to th
 
 Go to the options page by typing `,` in **jump**-mode.
 
+> Hint: You can also go to the options page by pressing `enter` whenever **jump** can't find a URL for the text you entered. Watch the suggestion underneath the address bar; if it says "Edit jump options", you can simply press enter.
+
 The options page basically lets you manage your URLs. Here you can:
 - Add a new URL under the "Register a new URL" section
 - Remove existing URLs from the "Registered URLs" section
 
-Registered URLs consiste of a **keyword** and a **URL**. The keyword is the part that you will type when you are **jump** mode, to jump to the URL.
+Registered URLs consist of a **keyword** and a **URL**. The keyword is the part that you will type when you are **jump** mode, to jump to the URL.
 
 To add a new URL, choose a keyword and type it into the _keyword_ field. Paste the URL into the _URL_ field. Then click on the _Add_ button.
 
