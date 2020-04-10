@@ -33,6 +33,14 @@ The options page basically lets you manage your URLs. Here you can:
 
 Registered URLs consiste of a **keyword** and a **URL**. The keyword is the part that you will type when you are **jump** mode, to jump to the URL.
 
+To add a new URL, choose a keyword and type it into the _keyword_ field. Paste the URL into the _URL_ field. Then click on the _Add_ button.
+
+<img width="794" alt="Screenshot 2020-04-10 at 19 14 56" src="https://user-images.githubusercontent.com/2232699/79009375-94655580-7b5f-11ea-96f4-1a30d9ebc2d1.png">
+
+To remove a URL, simply click on the _Remove_ button next to it.
+
+<img width="815" alt="Screenshot 2020-04-10 at 19 16 27" src="https://user-images.githubusercontent.com/2232699/79009474-ca0a3e80-7b5f-11ea-9d87-6533e086763e.png">
+
 > Tip: Keep your keywords distinct. You only need to type part of a keyword to select it, but the fewer characters you need to type to get the URL you want, the faster you become.
 
 Once you have registered some URLs, you're all set to start using **jump**.
