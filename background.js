@@ -46,7 +46,7 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	var suggestions = []
 	var numberOfSuggestedLinks = 0
 	for (key in links) {
-		if (key == text) {
+		if (key == text || closestMatch(text)) {
 			// Skip this one.
 
 		} else if (text != '' && key.includes(text)) {
@@ -92,11 +92,17 @@ function updateTopSuggestion(text) {
 		defaultSuggestion = '<dim>No matches. Enter "," to edit settings.</dim>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
 
-	} else if (links[text]) {
+	} else if (links[text] || closestMatch(text)) {
+		var match = '';
+		if (links[text]) { match = text }
+		else { match = closestMatch(text) }
+		console.log(match);
+		console.log(links[match]);
+		
 		// User entered a valid keyword. Show its url.
-		defaultSuggestion = '<match>' + text + '</match>'
+		defaultSuggestion = '<match>' + match + '</match>'
 		defaultSuggestion += ' <dim> ▶︎ </dim> '
-		defaultSuggestion += ' <url>' + links[text] + '</url>'
+		defaultSuggestion += ' <url>' + links[match] + '</url>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
 
 	} else if (text == ',') {
@@ -118,11 +124,14 @@ chrome.omnibox.onInputEntered.addListener(
 	function (text) {
 		if (text == ',') {
 			navigateToOptions()
-		}
-
-		let selectedLink = links[text]
-		if (selectedLink) {
-			navigate(selectedLink)
+		
+		} else if (links[text]) {
+			console.log('found exact match!');
+			navigate(links[text])
+			
+		} else if (closestMatch(text)) {
+			console.log('found top match!:')
+			navigate(links[closestMatch(text)]);
 		}
 	}
 );
@@ -140,3 +149,80 @@ function navigate(url) {
 		chrome.tabs.update(tabs[0].id, { url: url });
 	});
 }
+
+// Returns the most similar keyword to the given text, if any.
+function closestMatch(text) {
+	// Use exact match, if any (should be quicker to compute.)
+	if (links[text]) { 
+		return text 
+	
+	} else {
+		// Sort all keywords by similarity, and return the first one, if any.
+		matches = sortedMatches(text)
+		return matches[0]
+	}
+}
+
+// Returns an array of keywords, sorted by similarity to the given text.
+// Result excludes keywords that are too dissimilar to the given text, and may be empty.
+function sortedMatches(text) {
+	return Object.keys(links)
+		.map(function(keyword) { return {
+			// Determine similarity to text for each keyword.
+			keyword: keyword,
+			similarity: similarity(text, keyword) 
+		}})
+		.filter(function(value) {
+			// Exclude totally dissimilar keywords.
+			return value.similarity > 0
+		})
+		.sort(function(lhs, rhs) {
+			// Sort keywords by most similar.
+			return lhs.similarity > rhs.similarity
+		})
+		.map(function(value) {
+			return value.keyword
+		})
+}
+
+// Levenshtein distance
+function similarity(s1, s2) {
+	var longer = s1;
+	var shorter = s2;
+	if (s1.length < s2.length) {
+	  longer = s2;
+	  shorter = s1;
+	}
+	var longerLength = longer.length;
+	if (longerLength == 0) {
+	  return 1.0;
+	}
+	return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+ }
+ 
+ function editDistance(s1, s2) {
+	s1 = s1.toLowerCase();
+	s2 = s2.toLowerCase();
+ 
+	var costs = new Array();
+	for (var i = 0; i <= s1.length; i++) {
+	  var lastValue = i;
+	  for (var j = 0; j <= s2.length; j++) {
+		 if (i == 0)
+			costs[j] = j;
+		 else {
+			if (j > 0) {
+			  var newValue = costs[j - 1];
+			  if (s1.charAt(i - 1) != s2.charAt(j - 1))
+				 newValue = Math.min(Math.min(newValue, lastValue),
+					costs[j]) + 1;
+			  costs[j - 1] = lastValue;
+			  lastValue = newValue;
+			}
+		 }
+	  }
+	  if (i > 0)
+		 costs[s2.length] = lastValue;
+	}
+	return costs[s2.length];
+ }
