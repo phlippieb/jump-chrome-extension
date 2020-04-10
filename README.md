@@ -19,6 +19,8 @@ To activate **jump**:
 
 > Tip: learn a [shortcut key](https://support.google.com/chrome/answer/157179?hl=en) for focusing the address bar. My favourite is `cmd + l`.
 
+<img width="374" alt="Screenshot 2020-04-10 at 19 10 17" src="https://user-images.githubusercontent.com/2232699/79009237-58ca8b80-7b5f-11ea-964c-393e08905957.png">
+
 Once **jump** is activated, you can either jump to one of your URLs, or go to the options page. If you have just installed **jump**, you will want to go the options page first.
 
 ## Options page
