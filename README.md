@@ -49,6 +49,8 @@ Once you have registered some URLs, you're all set to start using **jump**.
 
 To jump to a registered URL, simply type its keyword while in **jump** mode. As you type, the top suggestion will indicate which registered URL is selected. You'll notice that you don't have to type the complete keyword.
 
+<img width="629" alt="Screenshot 2020-04-10 at 19 19 06" src="https://user-images.githubusercontent.com/2232699/79009640-43099600-7b60-11ea-87dd-7b37207970fc.png">
+
 With a URL selected as the top result, simply press `enter` to jump to it!
 
 You can also use the arrow keys to move up and down between suggestions. However, if you find yourself doing this a lot,  your keywords might benefit from some refinement. The idea is to jump as quickly as possible.
