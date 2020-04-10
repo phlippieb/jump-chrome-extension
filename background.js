@@ -1,13 +1,13 @@
 // Constants
 
 let links = {
-	"home": "https://github.com/phlippieb/jump-chrome-extension"
+  "home": "https://github.com/phlippieb/jump-chrome-extension"
 }
 
 chrome.omnibox.onInputStarted.addListener(
-	function() {
-		updateTopSuggestion('')
-	}
+  function () {
+    updateTopSuggestion('')
+  }
 )
 
 // Runs when the user types.
@@ -39,43 +39,54 @@ chrome.omnibox.onInputChanged.addListener(
 		}
 		
 		suggest(suggestions)
-	}
+  }
 )
 
 function updateTopSuggestion(text) {
-	if (text.trim() == '') {
-		// Nothing is entered. Show the help message? Or clear the suggestion?
-		defaultSuggestion = '<dim>No matches</dim>'
-		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
-	
-	} else if (links[text]) {
-		// User entered a valid keyword. Show its url.
-		defaultSuggestion = '<match>' + text + '</match>'
-		defaultSuggestion += ' <dim> ▶︎ </dim>'
-		defaultSuggestion += ' jump to'
-		defaultSuggestion += ' <url>' + links[text] + '</url>'
-		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
-	
-	} else {
-		// User entered something that isn't a valid keyword. Hide the default suggestion.
-		defaultSuggestion = '<dim>No matches</dim>'
-		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
-	}
+  if (text.trim() == '') {
+    // Nothing is entered. Show the help message? Or clear the suggestion?
+    defaultSuggestion = '<dim>No matches. Enter "," to edit settings.</dim>'
+    chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
+
+  } else if (links[text]) {
+    // User entered a valid keyword. Show its url.
+    defaultSuggestion = '<match>' + text + '</match>'
+    defaultSuggestion += ' <dim> ▶︎ </dim>'
+    defaultSuggestion += ' jump to'
+    defaultSuggestion += ' <url>' + links[text] + '</url>'
+    chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
+
+  } else {
+    // User entered something that isn't a valid keyword. Hide the default suggestion.
+    defaultSuggestion = '<dim>No matches. Enter "," to edit settings.</dim>'
+    chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
+  }
 }
 
 // Runs when the user selects (presses enter) a link.
 chrome.omnibox.onInputEntered.addListener(
-	function (text) {
-		let selectedLink = links[text]
-		if (selectedLink) {
-			navigate(selectedLink)
-		}
-	}
+  function (text) {
+    if (text == ',') {
+      navigateToOptions()
+    }
+
+    let selectedLink = links[text]
+    if (selectedLink) {
+      navigate(selectedLink)
+    }
+  }
 );
 
+function navigateToOptions() {
+  if (chrome.runtime.openOptionsPage) {
+    chrome.runtime.openOptionsPage();
+  } else {
+    window.open(chrome.runtime.getURL('options.html'));
+  }
+}
+
 function navigate(url) {
-	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-	  chrome.tabs.update(tabs[0].id, {url: url});
-	});
- }
- 
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.update(tabs[0].id, { url: url });
+  });
+}

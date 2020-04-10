@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<style>
+	/* .content {
+        max-width: 500px;
+        margin: auto;
+    } */
+	.icon-g:before {
+		/* TODO: missing */
+		content: "\e80a";
+	}
+</style>
+
+<head>
+	<title>Jump extension options</title>
+	<link rel="stylesheet" href="https://unpkg.com/picnic">
+
+</head>
+
+<body>
+	<div style="overflow: hidden;height: 150px;">
+		<nav>
+			<a href="#" class="brand">
+				<span>Jump</span>
+			</a>
+			<div class="menu">
+				<a href="https://github.com/phlippieb/jump-chrome-extension" class="pseudo button icon-g">Github</a>
+			</div>
+		</nav>
+	</div>
+
+	<div class="flex four">
+		<!-- Left spacing -->
+		<div>...</div>
+
+		<!-- Content -->
+		<div class="half">
+			<h1>Manage registered URLs</h1>
+
+			<p>
+				Manage your registered URLs below.
+			</p>
+
+			<!-- Add shortcuts: -->
+			<h2>Add URL</h2>
+			<p>
+				Add a new URL below.
+				Enter the URL in the "URL" field, and a keyword that you would like to use to jump to that URL in
+				the
+				"keyword" field.
+				Both are required.
+			</p>
+
+			<form>
+				<label for="fkeyword">When I enter this keyword:</label><br />
+				<input type="text" id="fkeyword" name="fkeyword"><br />
+				<label for="furl">Jump to this URL:</label><br />
+				<input type="text" id="furl" name="furl"><br />
+				<input type="submit" value="Add">
+				<!-- TODO: Add validation. -->
+			</form>
+
+			<!-- View current shortcuts-->
+
+			<!-- About: -->
+			<h1>Help</h1>
+			<p>
+				The jump extension lets you quickly navigate to URLs by entering keywords.
+			</p>
+			<p>
+				To activate the extension, type "j" in the search bar and press space;
+				you should see the jump icon appear, along with some suggestions.
+			</p>
+			<!-- TODO: add screenshots?.-->
+			<p>
+				To jump to a URL that has been registered with a keyword, enter the keyword and hit enter.
+				Alternatively, as you type, you will see suggestions appear underneath the search bar.
+				You can jump to the top suggestion by pressing enter at any time.
+			</p>
+			<p>
+				You can register URLs on this page.
+				To register a new URL, add it in the "Add URL" field below, along with its keyword.
+				Registered URLs are listed in the "URLs" table below.
+				You can remove a registered URL by clicking on the "x" for that URL.
+			</p>
+			<p>
+				<!-- TODO: make an issue for this feature and remove it from the help paragraph.-->
+				Future feature:
+
+				You will (hopefully) soon be able to add and remove URLs directly from the search bar.
+				To add a registered URL, you will activate the extension (by typing "j" and a space), then type
+				".add &lt;keyword&gt; &lt;url&gt;".
+				To remove a registered URL, you will simply select the URL from your suggestions, and press delete
+				(fn +
+				delete on Mac, I think).
+			</p>
+
+			<!-- Info: -->
+			<h1>Info</h1>
+			<p>
+				Jump extension created by Phlippie Bosman.
+			</p>
+			<p>
+				For info, help, bugs and contributions, visit the
+				<a href="https://github.com/phlippieb/jump-chrome-extension">Github repository</a>.
+			</p>
+			<h2>Acknowledgements</h2>
+			<p>
+				Jump uses the following content:
+				<ul>
+					<li>Pure CSS from <a href="https://purecss.io/">purecss.io</a></li>
+				</ul>
+			</p>
+		</div>
+
+		<!-- Right spacing -->
+		<div></div>
+	</div>
+</body>
+
+<!-- Favorite color:
+<select id="color">
+ <option value="red">red</option>
+ <option value="green">green</option>
+ <option value="blue">blue</option>
+ <option value="yellow">yellow</option>
+</select>
+
+<label>
+  <input type="checkbox" id="like">
+  I like colors.
+</label>
+
+<div id="status"></div>
+<button id="save">Save</button>
+
+<script src="options.js"></script>
+</body>
+</html> -->
