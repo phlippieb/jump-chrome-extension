@@ -4,7 +4,7 @@ Jump is a Chrome extension that lets you jump to URLs. It's like bookmarks, but 
 
 ## Installation
 
-**jump** is [available on the Chrome Web Store](https://chrome.google.com/webstore/detail/gbpdkldokkhflcfnijkdfkhfommfalnk/publish-accepted?authuser=0&hl=en-GB).
+**jump** is [available on the Chrome Web Store](https://chrome.google.com/webstore/detail/jump/gbpdkldokkhflcfnijkdfkhfommfalnk/related).
 
 ## Usage
 
