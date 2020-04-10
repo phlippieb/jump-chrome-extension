@@ -46,7 +46,7 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	var suggestions = []
 	var numberOfSuggestedLinks = 0
 	for (key in links) {
-		if (key == text || closestMatch(text)) {
+		if (key == text || key == closestMatch(text)) {
 			// Skip this one.
 
 		} else if (text != '' && key.includes(text)) {
