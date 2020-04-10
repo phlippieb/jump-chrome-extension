@@ -1,8 +1,4 @@
-console.log('Started.')
-// Constants
-
 let links = {}
-
 let maxNumberOfSuggestedLinks = 3;
 
 // Update links if storage changes.
@@ -12,14 +8,11 @@ chrome.storage.onChanged.addListener(function () {
 
 // Update the links from store.
 function loadLinksFromStorage() {
-	console.log('Loading links from storage...')
 	// Get the updated items.
 	chrome.storage.sync.get({
 		// Default values: empty list.
 		registeredLinks: []
 	}, function (items) {
-		console.log('Fetched registered links:')
-		console.log(items)
 		// Reset local links.
 		links = {}
 		
@@ -27,19 +20,13 @@ function loadLinksFromStorage() {
 		let registeredLinks = items.registeredLinks;
 		for (key in registeredLinks) {
 			registeredLink = registeredLinks[key];
-			console.log('\nregistered link:')
-			console.log(registeredLink)
 			let keyword = registeredLink.keyword;
-			console.log(keyword)
 			let url = registeredLink.url
-			console.log(url)
 			url = registeredLink.url;
 			if (keyword && url) {
 				links[keyword] = url;
 			}
 		}
-		console.log('links after restore:')
-		console.log(links)
 	});
 }
 
@@ -54,7 +41,6 @@ loadLinksFromStorage();
 // Runs when the user types.
 // Updates the suggestions underneath the typed text.
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
-	console.log('change')
 	updateTopSuggestion(text)
 
 	var suggestions = []
