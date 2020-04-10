@@ -46,20 +46,15 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	var suggestions = []
 	var numberOfSuggestedLinks = 0
 	for (key in links) {
-		if (key == text || key == closestMatch(text)) {
-			// Skip this one.
+		if (text == '') {
+			// No suggestions.
+		
+		} else if (key == text || key == closestMatch(text)) {
+			// Keyword is already suggested as the default suggestion.
 
 		} else if (text != '' && key.includes(text)) {
-			// Suggest this one.
-			description = '<dim>' + key + '</dim>'
-			description = description.replace(text, '</dim><match>' + text + '</match><dim>')
-			description += ' <dim> ▷ </dim> '
-			description += ' <url>' + links[key] + '</url>'
-
-			suggestion = {
-				content: key,
-				description: description
-			}
+			// TODO use top suggestions instead.
+			let suggestion = makeSuggestion(text, key, true)
 			suggestions.push(suggestion)
 
 			// Only show 3 suggestions.
@@ -74,9 +69,8 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	}
 
 	// Add suggestion for settings page.
-	optionsDescription = "<dim>,</dim>"
-	optionsDescription += ' <dim> ▷ </dim> '
-	optionsDescription += " Jump options"
+	optionsDescription = "jump | <dim>,</dim>"
+	optionsDescription += '<dim> | Edit options</dim>'
 	optionsSuggestion = {
 		content: ",",
 		description: optionsDescription
@@ -89,27 +83,21 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 function updateTopSuggestion(text) {
 	if (text.trim() == '') {
 		// Nothing is entered. Show the help message? Or clear the suggestion?
-		defaultSuggestion = '<dim>No matches. Enter "," to edit settings.</dim>'
+		defaultSuggestion = 'jump | <dim>No matches. Enter "," to edit settings.</dim>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
 
 	} else if (links[text] || closestMatch(text)) {
-		var match = '';
-		if (links[text]) { match = text }
-		else { match = closestMatch(text) }
-		console.log(match);
-		console.log(links[match]);
+		var keyword = '';
+		if (links[text]) { keyword = text; }
+		else { keyword = closestMatch(text); }
 		
-		// User entered a valid keyword. Show its url.
-		defaultSuggestion = '<dim>' + match + '</dim>'
-		defaultSuggestion = defaultSuggestion.replace(text, '</dim><match>' + text + '</match><dim>')
-		defaultSuggestion += ' <dim> ▶︎ </dim> '
-		defaultSuggestion += ' <url>' + links[match] + '</url>'
-		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
+		let suggestion = makeSuggestion(text, keyword, false);
+		chrome.omnibox.setDefaultSuggestion(suggestion);
 
 	} else if (text == ',') {
 		// User entered a valid keyword. Show its url.
-		defaultSuggestion = '<match>,</match>'
-		defaultSuggestion += ' <dim> ▶︎ </dim>'
+		defaultSuggestion = 'jump | <match>,</match>'
+		defaultSuggestion += '<dim> | </dim>'
 		defaultSuggestion += ' Jump options'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
 
@@ -117,6 +105,35 @@ function updateTopSuggestion(text) {
 		// User entered something that isn't a valid keyword. Hide the default suggestion.
 		defaultSuggestion = '<dim>No matches. Enter "," to edit settings.</dim>'
 		chrome.omnibox.setDefaultSuggestion({ description: defaultSuggestion })
+	}
+}
+
+// Make a suggestion object.
+// - Parameter text: The text entered by the user. May be a partial match for the keyword.
+// - Parameter keyword: The full keyword for the suggestion.
+// - Parameter includeContent: If false, result will not have a content field. Set to false when setting the default suggestion.
+function makeSuggestion(text, keyword, includeContent) {
+	// Dim the full keyword, and highlight the text part that matches.
+	keywordComponent = "<dim>" + keyword + "</dim>"
+	keywordComponent = keywordComponent.replace(text, "</dim><match>" + text + "</match><dim>")
+	
+	// Build the suggestion description.
+	description = "jump"
+	description += " <dim>|</dim> "
+	description += " " + keywordComponent 
+	description += " <dim>|</dim>"
+	description += " <url>" + links[keyword] + "</url>"
+	
+	if (includeContent) {
+		return {
+			content: keyword,
+			description: description
+		}
+		
+	} else {
+		return {
+			description: description
+		}
 	}
 }
 
